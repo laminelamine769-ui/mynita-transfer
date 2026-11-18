@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>myNITA – Transfert d’argent</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap">
+<style>
+:root{--blue:#00509a;--navy:#1c3f94;--orange:#ee5a14;--ink:#14284b;--muted:#5d6b86;--ph:#b7bccb;--card:#ffffffe6}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;font-family:Poppins,system-ui,sans-serif;color:var(--ink);line-height:1.6;
+ background:
+  radial-gradient(60% 40% at 0% 45%,#ff7a45 0%,#ff7a4500 70%),
+  radial-gradient(55% 45% at 100% 20%,#6c80e0 0%,#6c80e000 70%),
+  radial-gradient(60% 40% at 100% 100%,#8a9be6 0%,#8a9be600 70%),
+  #f4f8fb;background-attachment:fixed}
+:focus-visible{outline:3px solid var(--orange);outline-offset:3px}
+.wrap{max-width:1040px;margin:0 auto;padding:0 20px}
+nav{display:flex;justify-content:space-between;align-items:center;padding:18px 0}
+.pill{display:inline-block;border-radius:999px;padding:10px 20px;font-weight:500;font-size:.95rem;text-decoration:none;box-shadow:0 6px 18px #1c3f9422}
+.pill.white{background:#fff;color:var(--blue)}
+.pill.orange{background:var(--orange);color:#fff;box-shadow:0 8px 20px #ee5a1450}
+.hero{display:grid;gap:28px;align-items:center;padding:10px 0 56px}
+.rings{position:relative;width:min(78vw,320px);aspect-ratio:1;margin:0 auto;display:grid;place-items:center}
+.rings span{position:absolute;border-radius:50%;border:1.5px solid #ffffffb0}
+.rings span:nth-child(1){inset:0;border-width:1px;border-color:#ffffff80}
+.rings span:nth-child(2){inset:12.5%;border-width:3px;border-color:#fff}
+.rings span:nth-child(3){inset:25%;background:#ffffff66;border-color:#ffffffa0;backdrop-filter:blur(4px)}
+.logo{position:relative;text-align:center;font-weight:800;line-height:.9;transform:translateY(-2px)}
+.logo .my{display:block;color:var(--orange);font-size:clamp(1.7rem,7vw,2.3rem);text-align:left;margin-left:6px}
+.logo .nita{display:block;color:var(--navy);font-size:clamp(2.6rem,11vw,3.6rem);letter-spacing:-1px}
+.logo .nita b{color:var(--orange)}
+.logo small{display:block;font-size:.55rem;font-weight:700;color:var(--navy);letter-spacing:.2px;margin-top:6px}
+.hero h1{font-size:clamp(1.9rem,6vw,3rem);line-height:1.15;margin:0 0 14px;color:var(--ink)}
+.hero p{margin:0 0 22px;color:var(--muted);max-width:44ch}
+.btn{display:block;width:100%;text-align:center;background:var(--blue);color:#fff;border:0;border-radius:18px;padding:18px;font:600 1.1rem Poppins,sans-serif;text-decoration:none;box-shadow:0 8px 20px #00509a40;cursor:pointer}
+.btn.ghost{background:#fff;color:var(--blue)}
+.cta{display:grid;gap:12px;max-width:420px}
+.card{background:var(--card);border-radius:22px;padding:22px;box-shadow:0 14px 40px #1c3f9422;backdrop-filter:blur(6px)}
+.field{display:flex;align-items:center;gap:10px;background:#fff;border-radius:18px;padding:0 18px;height:60px;margin-bottom:12px;box-shadow:0 4px 14px #1c3f940f}
+.field input,.field select{flex:1;min-width:0;border:0;outline:0;background:transparent;font:500 1.1rem Poppins,sans-serif;color:var(--ink)}
+.field input::placeholder{color:var(--ph)}
+.field:focus-within{box-shadow:0 0 0 3px #00509a40}
+.field select{flex:0 0 auto;color:var(--muted)}
+.flag{width:34px;height:22px;border-radius:4px;background:linear-gradient(#e05206 33%,#fff 33% 66%,#0db02b 66%);position:relative;flex:none}
+.flag::after{content:"";position:absolute;left:50%;top:50%;width:7px;height:7px;border-radius:50%;background:#e05206;transform:translate(-50%,-50%)}
+.out{text-align:center;margin:6px 0 14px}
+.out small{color:var(--muted);display:block;font-size:.85rem}
+.out b{font-size:2rem;color:var(--blue)}
+.note{font-size:.8rem;color:var(--muted);margin:0 0 14px;text-align:center}
+section{padding:48px 0}
+h2{font-size:clamp(1.6rem,5vw,2.2rem);margin:0 0 8px}
+.lead{color:var(--muted);margin:0 0 26px;max-width:52ch}
+.grid{display:grid;gap:16px}
+.icon{width:48px;height:48px;border-radius:16px;background:var(--blue);color:#fff;display:grid;place-items:center;font-size:1.4rem;margin-bottom:12px}
+.icon.o{background:var(--orange)}
+.card h3{margin:0 0 6px;font-size:1.15rem}
+.card p{margin:0;color:var(--muted)}
+.steps{list-style:none;counter-reset:s;padding:0;margin:0;display:grid;gap:14px}
+.steps li{counter-increment:s;display:flex;gap:14px;align-items:flex-start;background:var(--card);border-radius:20px;padding:16px 18px;box-shadow:0 8px 24px #1c3f9418}
+.steps li::before{content:counter(s);flex:none;width:40px;height:40px;border-radius:50%;background:var(--orange);color:#fff;display:grid;place-items:center;font-weight:700}
+.steps b{display:block}.steps span{color:var(--muted);font-size:.95rem}
+footer{padding:30px 0 40px;text-align:center;color:var(--muted);font-size:.85rem}
+footer b{color:var(--ink)}
+@media(min-width:820px){
+ .hero{grid-template-columns:1fr 1fr;padding:30px 0 80px}
+ .hero .left{order:1}.hero .right{order:2}
+ .g3{grid-template-columns:repeat(3,1fr)}
+ .steps{grid-template-columns:repeat(2,1fr)}
+}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+<div class="wrap">
+ <nav aria-label="Navigation">
+  <a class="pill white" href="#aide">Aide&nbsp;?</a>
+  <a class="pill orange" href="#contact">Service Client</a>
+ </nav>
+
+ <div class="hero">
+  <div class="left">
+   <div class="rings" role="img" aria-label="Logo myNITA Transfert d’argent">
+    <span></span><span></span><span></span>
+    <div class="logo"><span class="my">my</span><span class="nita">NIT<b>A</b></span><small>TRANSFERT D’ARGENT</small></div>
+   </div>
+  </div>
+  <div class="right">
+   <h1>Envoyez de l’argent, simplement.</h1>
+   <p>Avec NITA, transférez et retirez de l’argent en toute sécurité, depuis votre téléphone ou en agence.</p>
+   <div class="cta">
+    <a class="btn" href="#">Se connecter</a>
+    <a class="btn ghost" href="#">Créer un compte</a>
+   </div>
+  </div>
+ </div>
+
+ <section id="simulateur" style="padding-top:0">
+  <div class="card" style="max-width:520px;margin:0 auto">
+   <h2 style="font-size:1.4rem">Estimez votre envoi</h2>
+   <div class="field"><span class="flag"></span><span style="color:var(--muted);font-weight:500">+227</span><input type="tel" inputmode="tel" placeholder="N° du bénéficiaire" aria-label="Numéro du bénéficiaire"></div>
+   <div class="field"><input id="amt" type="number" inputmode="decimal" min="0" value="100000" aria-label="Montant"><select id="cur" aria-label="Devise"><option>FCFA</option><option>EUR</option><option>USD</option></select></div>
+   <div class="field"><input id="pct" type="number" inputmode="decimal" min="0" step="0.1" value="3" aria-label="Frais en pourcentage"><span style="color:var(--muted)">% de frais</span></div>
+   <div class="out" aria-live="polite"><small>Le bénéficiaire reçoit environ</small><b id="out"></b><small id="fee"></small></div>
+   <p class="note">Estimation indicative. Les frais exacts sont confirmés avant l’envoi.</p>
+   <a class="btn" href="#">Envoyer maintenant</a>
+  </div>
+ </section>
+
+ <section id="services">
+  <h2>Nos services</h2>
+  <p class="lead">Des opérations claires, avec une confirmation à chaque transfert.</p>
+  <div class="grid g3">
+   <div class="card"><div class="icon">↗</div><h3>Envoi d’argent</h3><p>Envoyez de l’argent à vos proches en quelques minutes.</p></div>
+   <div class="card"><div class="icon o">↙</div><h3>Retrait d’argent</h3><p>Retirez avec votre code de retrait et une pièce d’identité.</p></div>
+   <div class="card"><div class="icon">⌕</div><h3>Suivi de transfert</h3><p>Suivez l’état de votre envoi avec son code.</p></div>
+  </div>
+ </section>
+
+ <section id="aide">
+  <h2>Comment ça marche</h2>
+  <p class="lead">Quatre étapes, du compte au retrait.</p>
+  <ol class="steps">
+   <li><div><b>Créez votre compte</b><span>Avec votre numéro de téléphone.</span></div></li>
+   <li><div><b>Indiquez le montant</b><span>Et le numéro du bénéficiaire.</span></div></li>
+   <li><div><b>Confirmez l’envoi</b><span>Vous recevez un code de transfert.</span></div></li>
+   <li><div><b>Le bénéficiaire retire</b><span>Avec le code et sa pièce d’identité.</span></div></li>
+  </ol>
+ </section>
+
+ <section id="contact">
+  <h2>Service client</h2>
+  <p class="lead">Une question ? Notre équipe vous répond.</p>
+  <div class="grid g3">
+   <div class="card"><h3>Agence principale</h3><p>[Adresse de l’agence]<br>[Ville, Niger]</p></div>
+   <div class="card"><h3>Téléphone</h3><p>[+227 00 00 00 00]<br>WhatsApp : [+227 00 00 00 00]</p></div>
+   <div class="card"><h3>Horaires</h3><p>Lundi – Samedi : [8h – 18h]<br>Dimanche : [fermé]</p></div>
+  </div>
+ </section>
+</div>
+
+<footer><b>myNITA – Transfert d’argent</b><br>© 2026 NITA. Tous droits réservés. [Numéro d’agrément]</footer>
+
+<script>
+(function(){
+ var a=document.getElementById('amt'),c=document.getElementById('cur'),p=document.getElementById('pct'),o=document.getElementById('out'),f=document.getElementById('fee');
+ function fmt(n){return n.toLocaleString('fr-FR',{maximumFractionDigits:2})}
+ function calc(){var m=parseFloat(a.value)||0,r=parseFloat(p.value)||0,fee=m*r/100;
+  o.textContent=fmt(Math.max(m-fee,0))+' '+c.value;f.textContent='Frais estimés : '+fmt(fee)+' '+c.value}
+ [a,c,p].forEach(function(e){e.addEventListener('input',calc)});calc();
+})();
+</script>
+</body>
+</html>
